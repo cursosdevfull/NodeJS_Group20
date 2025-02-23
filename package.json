@@ -1,0 +1,27 @@
+{
+  "name": "nodejs_group20",
+  "version": "1.0.0",
+  "description": "it's a example ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cursosdevfull/NodeJS_Group20.git"
+  },
+  "author": "Sergio Hidalgo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cursosdevfull/NodeJS_Group20/issues"
+  },
+  "homepage": "https://github.com/cursosdevfull/NodeJS_Group20#readme",
+  "packageManager": "npm@8.19.2",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "helmet": "^8.0.0",
+    "nodemon": "^3.1.9"
+  }
+}
