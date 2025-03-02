@@ -1,11 +1,8 @@
-# Proyecto solo con NodeJS
+# NodeJS con https
 
-### Creación del proyecto
+### Generar los certificados
 ```sh
-npm init -y
-```
+openssl genrsa -out certificates/curso-nodejs20.pem 2048
+openssl req -new -x509 -key certificates/curso-nodejs20.pem -out certificates/curso-nodejs20-public.pem -days 365
 
-### Ejecución del código
-```sh
-node index
 ```
