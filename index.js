@@ -1,4 +1,4 @@
-const http = require("https")
+const http = require("http")
 const instance = require("./src/routes/route")
 const auth = require("./src/middlewares/authorization.middleware")
 
