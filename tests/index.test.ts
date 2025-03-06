@@ -1,0 +1,1 @@
+const myFirstTest = "My first test";
