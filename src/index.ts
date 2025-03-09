@@ -28,6 +28,38 @@ const kafka = KafkaBootstrap.getInstance();
     }
 })()
 
+process.on("uncaughtException", (error) => {
+    console.error("¡Excepción no capturada!", error)
+    process.exit(1)
+})
+
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("¡Rechazo no capturado!", reason)
+    process.exit(1)
+})
+
+process.on("exit", () => {
+    console.log("¡Saliendo de la aplicación!")
+    gracefullyShutdown()
+})
+
+process.on("SIGINT", () => {
+    console.log("¡SIGINT recibido!")
+    process.exit(0)
+})
+
+process.on("SIGTERM", () => {
+    console.log("¡SIGTERM recibido!")
+    process.exit(0)
+})
+
+function gracefullyShutdown() {
+    console.log("¡Cerrando la aplicación!")
+    /*     database.close()
+        redis.close()
+        kafka.close() */
+}
+
 
 
 

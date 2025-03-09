@@ -2,6 +2,7 @@ import express, { Application } from "express"
 import { DatabaseBootstrap, KafkaBootstrap, RedisBootstrap } from "./bootstrap"
 import { requestTiming } from "./core"
 import { responseJSON } from "./core/middlewares/response-json.middleware"
+import productRouter from "./modules/product/presentation/product.routes"
 
 class App {
     readonly app: Application
@@ -14,6 +15,8 @@ class App {
     }
 
     private mountMiddlewares(): void {
+        this.app.use(express.json())
+        this.app.use(express.urlencoded({ extended: true }))
         this.app.use(requestTiming)
         this.app.use(responseJSON)
     }
@@ -36,10 +39,7 @@ class App {
     }
 
     private mountRoutes(): void {
-        this.app.get("/", (request, response) => {
-            console.log("path executed")
-            response.send("¡Hola, mundo!")
-        })
+        this.app.use("/product", productRouter)
     }
 }
 export default new App().app
