@@ -3,12 +3,11 @@ import { ProductApplication } from "../application/product.application";
 import { Request, Response } from "express"
 
 export class ProductController {
-    constructor(private readonly application: ProductApplication) {
-    }
+    constructor(private readonly application: ProductApplication) { }
 
     async create(request: Request, response: Response) {
         const { name, price, description, stock } = request.body;
-        const product = new Product(name, price, description, stock)
+        const product = new Product({ name, price, description, stock })
 
         const productReturned = await this.application.create(product)
 
@@ -18,6 +17,30 @@ export class ProductController {
             response.status(201).json(productReturned)
             //response.status(201).type("application/json").send(JSON.stringify(product))
         }
+    }
 
+    async update(request: Request, response: Response) {
+        const { productId } = request.params
+        const { name, price, description, stock } = request.body
+
+        const productReturned = await this.application.update(parseInt(productId), { name, price, description, stock })
+
+        if (!productReturned) {
+            response.status(411).send("Product not found")
+        } else {
+            response.status(201).json(productReturned)
+        }
+    }
+
+    async delete(request: Request, response: Response) {
+        const { productId } = request.params
+
+        const productReturned = await this.application.delete(parseInt(productId))
+
+        if (!productReturned) {
+            response.status(411).send("Product not found")
+        } else {
+            response.status(201).json(productReturned)
+        }
     }
 }

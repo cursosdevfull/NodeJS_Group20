@@ -8,3 +8,15 @@ Content-Type: application/json
     "description": "New Product 01", 
     "stock": 5000 
 }
+
+### Update
+put http://localhost:3000/product/update/5612
+Content-Type: application/json
+
+{ 
+    "name": "Product 02", 
+    "description": "New Product 02"
+}
+
+### Delete
+delete http://localhost:3000/product/delete/5612

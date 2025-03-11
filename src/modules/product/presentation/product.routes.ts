@@ -3,7 +3,6 @@ import { ProductController } from "./product.controller";
 import { ProductApplication } from "../application/product.application";
 import { ProductAdapter } from "../adapters/product.adapter";
 import { ProductPort } from "../ports/product.port";
-import { Request, Response } from "express";
 
 export class ProductRoutes {
     router: Router = Router()
@@ -14,6 +13,8 @@ export class ProductRoutes {
 
     init() {
         this.router.post("/", this.controller.create.bind(this.controller))
+        this.router.put("/update/:productId", this.controller.update.bind(this.controller))
+        this.router.delete("/delete/:productId", this.controller.delete.bind(this.controller))
     }
 }
 
