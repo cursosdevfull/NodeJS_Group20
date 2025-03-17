@@ -21,8 +21,8 @@ export class KafkaBootstrap {
     healthCheck(): Promise<string> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                //resolve("Kafka is healthy")
-                reject("Kafka is not healthy")
+                resolve("Kafka is healthy")
+                //reject("Kafka is not healthy")
             }, 2000);
         })
     }

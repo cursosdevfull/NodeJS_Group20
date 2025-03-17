@@ -1,4 +1,4 @@
-import { ProductPort } from "../ports/product.port";
+import { ProductPort } from "../ports";
 import { Product, ProductUpdate } from "./product";
 
 export class ProductApplication {
@@ -33,6 +33,18 @@ export class ProductApplication {
         product.delete();
 
         return this.port.update(product);
+    }
+
+    async getOne(productId: number) {
+        return this.port.get(productId);
+    }
+
+    async getAll() {
+        return this.port.getAll();
+    }
+
+    async getByPage(page: number, size: number) {
+        return this.port.getByPage(page, size);
     }
 
 

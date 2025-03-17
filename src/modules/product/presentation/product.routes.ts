@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { ProductController } from "./product.controller";
-import { ProductApplication } from "../application/product.application";
-import { ProductAdapter } from "../adapters/product.adapter";
-import { ProductPort } from "../ports/product.port";
+import { ProductController } from "./";
+import { ProductApplication } from "../application";
+import { ProductAdapter } from "../adapters";
+import { ProductPort } from "../ports";
 
 export class ProductRoutes {
     router: Router = Router()
@@ -13,12 +13,15 @@ export class ProductRoutes {
 
     init() {
         this.router.post("/", this.controller.create.bind(this.controller))
-        this.router.put("/update/:productId", this.controller.update.bind(this.controller))
-        this.router.delete("/delete/:productId", this.controller.delete.bind(this.controller))
+        this.router.put("/:productId", this.controller.update.bind(this.controller))
+        this.router.delete("/:productId", this.controller.delete.bind(this.controller))
+        this.router.get("/page", this.controller.findByPage.bind(this.controller))
+        this.router.get("/:productId", this.controller.findOne.bind(this.controller))
+        this.router.get("/", this.controller.findAll.bind(this.controller))
     }
 }
 
 const port: ProductPort = new ProductAdapter()
 const application = new ProductApplication(port)
 const controller = new ProductController(application)
-export default new ProductRoutes(controller).router
+export const productRouter = new ProductRoutes(controller).router

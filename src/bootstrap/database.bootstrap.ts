@@ -1,28 +1,53 @@
+import { DataSource } from "typeorm";
+
 export class DatabaseBootstrap {
-    private static instance: DatabaseBootstrap
+    static datasource: DataSource
 
-    private constructor() { }
+    async initialize() {
+        const datasource = new DataSource({
+            type: "mysql",
+            host: "localhost",
+            port: 3306,
+            username: "user",
+            password: "12345",
+            database: "db",
+            synchronize: true,
+            entities: ["src/modules/**/*.entity.ts"],
+            logging: true,
+            poolSize: 10
+        })
 
-    static getInstance(): DatabaseBootstrap {
-        if (!this.instance) {
-            this.instance = new DatabaseBootstrap()
-        }
-        return this.instance
+        DatabaseBootstrap.datasource = datasource
+
+        await datasource.initialize()
+
+        return `Database connection initialized`
     }
 
-    initialize(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("Database initialized")
-            }, 2000);
-        })
-    }
+    static async healthCheck() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!DatabaseBootstrap.datasource || !DatabaseBootstrap.datasource.isInitialized) {
+                    reject({
+                        status: 'down',
+                        message: 'Database connection not initialized'
+                    })
+                    return
+                }
 
-    healthCheck(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("Database is healthy")
-            }, 2000);
+                await DatabaseBootstrap.datasource.query('SELECT 1');
+                resolve({
+                    status: 'up',
+                    message: 'Database connection is healthy',
+                })
+            } catch (error) {
+                reject({
+                    status: 'down',
+                    message: `Database health check failed: ${(error as Error).message}`,
+                    error: (error as Error).stack
+                })
+            }
         })
+
     }
 }

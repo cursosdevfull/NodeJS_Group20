@@ -1,10 +1,11 @@
+import "reflect-metadata";
 import app from './app';
 import { DatabaseBootstrap, KafkaBootstrap, RedisBootstrap, ServerBootstrap } from './bootstrap';
 
 const server = new ServerBootstrap(app);
-const database = DatabaseBootstrap.getInstance();
-const redis = RedisBootstrap.getInstance();
-const kafka = KafkaBootstrap.getInstance();
+const database = new DatabaseBootstrap();
+/* const redis = RedisBootstrap.getInstance();
+const kafka = KafkaBootstrap.getInstance(); */
 
 (async () => {
     try {
@@ -12,8 +13,8 @@ const kafka = KafkaBootstrap.getInstance();
             [
                 server.initialize(),
                 database.initialize(),
-                redis.initialize(),
-                kafka.initialize()
+                /*redis.initialize(),
+                kafka.initialize()*/
             ])
 
         response.forEach((result) => {

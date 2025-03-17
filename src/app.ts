@@ -1,8 +1,7 @@
 import express, { Application } from "express"
 import { DatabaseBootstrap, KafkaBootstrap, RedisBootstrap } from "./bootstrap"
-import { requestTiming } from "./core"
-import { responseJSON } from "./core/middlewares/response-json.middleware"
-import productRouter from "./modules/product/presentation/product.routes"
+import { requestTiming, responseJSON } from "./core"
+import { productRouter } from "./modules/product"
 
 class App {
     readonly app: Application
@@ -24,11 +23,8 @@ class App {
     private mountHealthCheck(): void {
         this.app.get("/healthcheck", (request, response) => {
             console.log("healthcheck executed")
-            const database = DatabaseBootstrap.getInstance()
-            const redis = RedisBootstrap.getInstance()
-            const kafka = KafkaBootstrap.getInstance()
 
-            Promise.all([database.healthCheck(), redis.healthCheck(), kafka.healthCheck()])
+            Promise.all([DatabaseBootstrap.healthCheck()])
                 .then((result) => {
                     response.send(result)
                 })

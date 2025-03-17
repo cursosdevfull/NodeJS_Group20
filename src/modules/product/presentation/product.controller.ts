@@ -1,5 +1,4 @@
-import { Product } from "../application/product";
-import { ProductApplication } from "../application/product.application";
+import { Product, ProductApplication } from "../application";
 import { Request, Response } from "express"
 
 export class ProductController {
@@ -12,10 +11,9 @@ export class ProductController {
         const productReturned = await this.application.create(product)
 
         if (!productReturned) {
-            response.status(411).send("Product already exists")
+            response.status(411).json({ message: "Product already exists" })
         } else {
             response.status(201).json(productReturned)
-            //response.status(201).type("application/json").send(JSON.stringify(product))
         }
     }
 
@@ -26,7 +24,7 @@ export class ProductController {
         const productReturned = await this.application.update(parseInt(productId), { name, price, description, stock })
 
         if (!productReturned) {
-            response.status(411).send("Product not found")
+            response.status(411).json({ message: "Product not found" })
         } else {
             response.status(201).json(productReturned)
         }
@@ -38,9 +36,34 @@ export class ProductController {
         const productReturned = await this.application.delete(parseInt(productId))
 
         if (!productReturned) {
-            response.status(411).send("Product not found")
+            response.status(411).json({ message: "Product not found" })
         } else {
             response.status(201).json(productReturned)
         }
+    }
+
+    async findOne(request: Request, response: Response) {
+        const { productId } = request.params
+
+        const productReturned = await this.application.getOne(parseInt(productId))
+
+        if (!productReturned) {
+            response.status(411).json({ message: "Product not found" })
+        } else {
+            response.status(201).json(productReturned)
+        }
+    }
+
+    async findAll(request: Request, response: Response) {
+        const products = await this.application.getAll()
+
+        response.status(200).json(products)
+    }
+
+    async findByPage(request: Request, response: Response) {
+        const { page, size } = request.query
+
+        const products = await this.application.getByPage(parseInt(page as string), parseInt(size as string))
+        response.status(200).json({ ...products, page, size })
     }
 }

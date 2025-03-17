@@ -17,7 +17,7 @@ export type ProductProps = ProductRequired & Partial<ProductOptional>
 export type ProductUpdate = Partial<ProductRequired>
 
 export class Product {
-    private readonly productId: number;
+    private readonly productId: number | undefined;
     private name: string;
     private price: number;
     private description: string;
@@ -38,7 +38,9 @@ export class Product {
         this.stock = props.stock;
         this.createdAt = new Date();
 
-        this.productId = Math.floor(Math.random() * 10000 + 1);
+        if (props.productId) this.productId = props.productId;
+        this.createdAt = props.createdAt || new Date()
+
     }
 
     properties() {
