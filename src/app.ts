@@ -2,6 +2,7 @@ import express, { Application } from "express"
 import { DatabaseBootstrap, KafkaBootstrap, RedisBootstrap } from "./bootstrap"
 import { requestTiming, responseJSON } from "./core"
 import { productRouter } from "./modules/product"
+import { ServerBootstrap } from './bootstrap/server.bootstrap';
 
 class App {
     readonly app: Application
@@ -22,11 +23,10 @@ class App {
 
     private mountHealthCheck(): void {
         this.app.get("/healthcheck", (request, response) => {
-            console.log("healthcheck executed")
 
-            Promise.all([DatabaseBootstrap.healthCheck()])
+            Promise.all([ServerBootstrap.healthCheck(), DatabaseBootstrap.healthCheck()])
                 .then((result) => {
-                    response.send(result)
+                    response.json(result)
                 })
                 .catch((error) => {
                     response.status(500).send(error)

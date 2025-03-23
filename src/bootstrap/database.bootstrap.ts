@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { env } from '../env';
 
 export class DatabaseBootstrap {
     static datasource: DataSource
@@ -6,15 +7,15 @@ export class DatabaseBootstrap {
     async initialize() {
         const datasource = new DataSource({
             type: "mysql",
-            host: "localhost",
-            port: 3306,
-            username: "user",
-            password: "12345",
-            database: "db",
-            synchronize: true,
+            host: env.DB_HOST,
+            port: env.DB_PORT,
+            username: env.DB_USER,
+            password: env.DB_PASS,
+            database: env.DB_NAME,
+            synchronize: env.DB_SYNC,
             entities: ["src/modules/**/*.entity.ts"],
-            logging: true,
-            poolSize: 10
+            logging: env.DB_LOGG,
+            poolSize: env.DB_POOL
         })
 
         DatabaseBootstrap.datasource = datasource

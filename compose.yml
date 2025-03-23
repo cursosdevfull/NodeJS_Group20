@@ -49,5 +49,5 @@ services:
 networks:
   server-network:
     driver: bridge
-    name: server-network
+    name: server-network      
 

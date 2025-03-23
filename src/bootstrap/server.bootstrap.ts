@@ -2,8 +2,7 @@ import http from "http"
 import app from "../app"
 import { Application } from "express"
 import { AddressInfo } from "net"
-
-const PORT = 3000
+import { env } from '../env';
 
 export class ServerBootstrap {
     private readonly app: Application
@@ -16,7 +15,10 @@ export class ServerBootstrap {
         return new Promise((resolve, reject) => {
             const server = http.createServer(app)
 
-            server.listen(PORT, "0.0.0.0")
+            const PORT = env.PORT
+            const APP_HOST = env.APP_HOST
+
+            server.listen(PORT, APP_HOST)
                 .on("error", (error) => reject(`Error: ${error}`))
                 .on("listening", () => {
                     const address = server.address() as AddressInfo
@@ -25,28 +27,12 @@ export class ServerBootstrap {
         })
     }
 
-
-    /*
-    initialize(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const server = http.createServer(async (request, response) => {
-                //throw new Error("Error no capturado");
-                const promise = new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        reject("¡Error en promesa no capturada!")
-                    }, 1000)
-                })
-
-                await promise
-            })
-
-            server.listen(PORT)
-                .on("error", (error) => reject(`Error: ${error}`))
-                .on("listening", () => { resolve(`Server running on port ${PORT}`); console.log(`Server running on port ${PORT}`); console.log(`Pid process ${process.pid}`) })
-        })
+    static async healthCheck() {
+        return {
+            status: 'up',
+            message: 'Server is healthy',
+        }
     }
-
-    */
 }
 
 
