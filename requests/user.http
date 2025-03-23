@@ -1,0 +1,31 @@
+### Create
+post http://localhost:4600/user
+Content-Type: application/json
+
+{ 
+    "name": "User name 06", 
+    "lastname": "User lastname 06",
+    "email": "email06@company.com",
+    "password": "password06",
+    "sex": "FEMALE"
+}
+
+### Update
+put http://localhost:4600/user/1
+Content-Type: application/json
+
+{ 
+    "price": 2000
+}
+
+### Delete
+delete http://localhost:4600/user/0dca5eac-9031-4140-b789-56ce58e4e6d0
+
+### Get All
+get http://localhost:4600/user
+
+### Get By Id
+get http://localhost:4600/user/0dca5eac-9031-4140-b789-56ce58e4e6d0
+
+### Get by page
+get http://localhost:4600/user/page?page=1&limit=2

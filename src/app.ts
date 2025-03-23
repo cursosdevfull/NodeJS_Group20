@@ -1,7 +1,8 @@
 import express, { Application } from "express"
-import { DatabaseBootstrap, KafkaBootstrap, RedisBootstrap } from "./bootstrap"
+import { DatabaseBootstrap } from "./bootstrap"
 import { requestTiming, responseJSON } from "./core"
 import { productRouter } from "./modules/product"
+import { userRouter } from "./modules/user"
 import { ServerBootstrap } from './bootstrap/server.bootstrap';
 
 class App {
@@ -36,6 +37,7 @@ class App {
 
     private mountRoutes(): void {
         this.app.use("/product", productRouter)
+        this.app.use("/user", userRouter)
     }
 }
 export default new App().app
