@@ -1,0 +1,4 @@
+dist
+mysql
+node_modules
+postgres
