@@ -1,18 +1,13 @@
 {
-    "watch": [
-        "src"
-    ],
-    "ext": "ts json",
-    "execMap": {
-        "ts": "ts-node"
-    },
-    "ignore": [
-        "node_modules",
-        "dist"
-    ],
-    "env": {
-        "NODE_ENV": "development"
-    },
-    "verbose": true,
-    "restartable": "rs"
+	"watch": ["src"],
+	"ext": "ts json",
+	"execMap": {
+		"ts": "ts-node"
+	},
+	"ignore": ["node_modules", "dist"],
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"verbose": true,
+	"restartable": "rs"
 }

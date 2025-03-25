@@ -1,59 +1,57 @@
-import { User, UserRepository, UserUpdateProps } from "../domain";
+import type { User, UserRepository, UserUpdateProps } from "../domain";
 
 export class UserApplication {
-    constructor(private readonly repository: UserRepository) { }
+  constructor(private readonly repository: UserRepository) {}
 
-    async create(user: User) {
-        const { email } = user.properties
+  async create(user: User) {
+    const { email } = user.properties;
 
-        const existsEmail = await this.repository.existsEmail(email)
+    const existsEmail = await this.repository.existsEmail(email);
 
-        if (existsEmail) {
-            throw new Error("Email already exists")
-        }
-
-        return await this.repository.save(user)
+    if (existsEmail) {
+      throw new Error("Email already exists");
     }
 
-    async update(userId: string, props: UserUpdateProps) {
-        const user = await this.repository.getById(userId)
+    return await this.repository.save(user);
+  }
 
-        if (!user) {
-            throw new Error("User not found")
-        }
+  async update(userId: string, props: UserUpdateProps) {
+    const user = await this.repository.getById(userId);
 
-        user.update(props)
-        return await this.repository.save(user)
+    if (!user) {
+      throw new Error("User not found");
     }
 
-    async delete(userId: string) {
-        const user = await this.repository.getById(userId)
+    user.update(props);
+    return await this.repository.save(user);
+  }
 
-        if (!user) {
-            throw new Error("User not found")
-        }
+  async delete(userId: string) {
+    const user = await this.repository.getById(userId);
 
-        user.delete()
-        return await this.repository.save(user)
+    if (!user) {
+      throw new Error("User not found");
     }
 
-    async getById(userId: string) {
-        const user = await this.repository.getById(userId)
+    user.delete();
+    return await this.repository.save(user);
+  }
 
-        if (!user) {
-            throw new Error("User not found")
-        }
+  async getById(userId: string) {
+    const user = await this.repository.getById(userId);
 
-        return user
+    if (!user) {
+      throw new Error("User not found");
     }
 
-    async getAll() {
-        return await this.repository.getAll()
-    }
+    return user;
+  }
 
-    async getByPage(page: number, limit: number) {
-        return await this.repository.getByPage(page, limit)
-    }
+  async getAll() {
+    return await this.repository.getAll();
+  }
 
-
+  async getByPage(page: number, limit: number) {
+    return await this.repository.getByPage(page, limit);
+  }
 }

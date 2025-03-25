@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "desa": "ts-node src/index",
-    "start:dev": "nodemon src/index.ts"
+    "start:dev": "nodemon src/index.ts",
+    "biome-check": "biome check .",
+    "biome-fix": "biome check . --write --unsafe",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   },
   "homepage": "https://github.com/cursosdevfull/NodeJS_Group20#readme",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
     "nodemon": "^3.1.9"

@@ -1,11 +1,11 @@
-import { Product } from "../application"
-import { ResponsePage } from '../../../core';
+import type { ResponsePage } from "../../../core";
+import type { Product } from "../application";
 
 export type ProductPort = {
-    create(product: Product): Promise<Product>;
-    update(product: Product): Promise<Product>;
-    get(productId: number): Promise<Product | null>;
-    getAll(): Promise<Product[]>;
-    getByPage(page: number, size: number): Promise<ResponsePage<Product>>;
-    searchByName(name: string): Promise<Product | null>;
-}
+  create(product: Product): Promise<Product>;
+  update(product: Product): Promise<Product>;
+  get(productId: number): Promise<Product | null>;
+  getAll(): Promise<Product[]>;
+  getByPage(page: number, size: number): Promise<ResponsePage<Product>>;
+  searchByName(name: string): Promise<Product | null>;
+};

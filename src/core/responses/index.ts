@@ -1,1 +1,1 @@
-export { ResponsePage } from './response-page';
+export { ResponsePage } from "./response-page";

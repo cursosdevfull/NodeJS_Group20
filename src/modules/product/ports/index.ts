@@ -1,1 +1,1 @@
-export { type ProductPort } from "./product.port";
+export type { ProductPort } from "./product.port";

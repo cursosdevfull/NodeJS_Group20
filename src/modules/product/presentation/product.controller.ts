@@ -1,69 +1,79 @@
-import { Product, ProductApplication } from "../application";
-import { Request, Response } from "express"
+import type { Request, Response } from "express";
+import { Product, type ProductApplication } from "../application";
 
 export class ProductController {
-    constructor(private readonly application: ProductApplication) { }
+  constructor(private readonly application: ProductApplication) {}
 
-    async create(request: Request, response: Response) {
-        const { name, price, description, stock } = request.body;
-        const product = new Product({ name, price, description, stock })
+  async create(request: Request, response: Response) {
+    const { name, price, description, stock } = request.body;
+    const product = new Product({ name, price, description, stock });
 
-        const productReturned = await this.application.create(product)
+    const productReturned = await this.application.create(product);
 
-        if (!productReturned) {
-            response.status(411).json({ message: "Product already exists" })
-        } else {
-            response.status(201).json(productReturned)
-        }
+    if (!productReturned) {
+      response.status(411).json({ message: "Product already exists" });
+    } else {
+      response.status(201).json(productReturned);
     }
+  }
 
-    async update(request: Request, response: Response) {
-        const { productId } = request.params
-        const { name, price, description, stock } = request.body
+  async update(request: Request, response: Response) {
+    const { productId } = request.params;
+    const { name, price, description, stock } = request.body;
 
-        const productReturned = await this.application.update(parseInt(productId), { name, price, description, stock })
+    const productReturned = await this.application.update(
+      Number.parseInt(productId),
+      { name, price, description, stock },
+    );
 
-        if (!productReturned) {
-            response.status(411).json({ message: "Product not found" })
-        } else {
-            response.status(201).json(productReturned)
-        }
+    if (!productReturned) {
+      response.status(411).json({ message: "Product not found" });
+    } else {
+      response.status(201).json(productReturned);
     }
+  }
 
-    async delete(request: Request, response: Response) {
-        const { productId } = request.params
+  async delete(request: Request, response: Response) {
+    const { productId } = request.params;
 
-        const productReturned = await this.application.delete(parseInt(productId))
+    const productReturned = await this.application.delete(
+      Number.parseInt(productId),
+    );
 
-        if (!productReturned) {
-            response.status(411).json({ message: "Product not found" })
-        } else {
-            response.status(201).json(productReturned)
-        }
+    if (!productReturned) {
+      response.status(411).json({ message: "Product not found" });
+    } else {
+      response.status(201).json(productReturned);
     }
+  }
 
-    async findOne(request: Request, response: Response) {
-        const { productId } = request.params
+  async findOne(request: Request, response: Response) {
+    const { productId } = request.params;
 
-        const productReturned = await this.application.getOne(parseInt(productId))
+    const productReturned = await this.application.getOne(
+      Number.parseInt(productId),
+    );
 
-        if (!productReturned) {
-            response.status(411).json({ message: "Product not found" })
-        } else {
-            response.status(201).json(productReturned)
-        }
+    if (!productReturned) {
+      response.status(411).json({ message: "Product not found" });
+    } else {
+      response.status(201).json(productReturned);
     }
+  }
 
-    async findAll(request: Request, response: Response) {
-        const products = await this.application.getAll()
+  async findAll(_request: Request, response: Response) {
+    const products = await this.application.getAll();
 
-        response.status(200).json(products)
-    }
+    response.status(200).json(products);
+  }
 
-    async findByPage(request: Request, response: Response) {
-        const { page, size } = request.query
+  async findByPage(request: Request, response: Response) {
+    const { page, size } = request.query;
 
-        const products = await this.application.getByPage(parseInt(page as string), parseInt(size as string))
-        response.status(200).json({ ...products, page, size })
-    }
+    const products = await this.application.getByPage(
+      Number.parseInt(page as string),
+      Number.parseInt(size as string),
+    );
+    response.status(200).json({ ...products, page, size });
+  }
 }

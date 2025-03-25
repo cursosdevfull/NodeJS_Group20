@@ -1,31 +1,29 @@
 export class KafkaBootstrap {
-    private static instance: KafkaBootstrap
+  private static instance: KafkaBootstrap;
 
-    private constructor() { }
+  private constructor() {}
 
-    static getInstance(): KafkaBootstrap {
-        if (!this.instance) {
-            this.instance = new KafkaBootstrap()
-        }
-        return this.instance
+  static getInstance(): KafkaBootstrap {
+    if (!KafkaBootstrap.instance) {
+      KafkaBootstrap.instance = new KafkaBootstrap();
     }
+    return KafkaBootstrap.instance;
+  }
 
-    initialize(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("Kafka initialized")
-            }, 2000);
-        })
-    }
+  initialize(): Promise<string> {
+    return new Promise((resolve, _reject) => {
+      setTimeout(() => {
+        resolve("Kafka initialized");
+      }, 2000);
+    });
+  }
 
-    healthCheck(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("Kafka is healthy")
-                //reject("Kafka is not healthy")
-            }, 2000);
-        })
-    }
+  healthCheck(): Promise<string> {
+    return new Promise((resolve, _reject) => {
+      setTimeout(() => {
+        resolve("Kafka is healthy");
+        //reject("Kafka is not healthy")
+      }, 2000);
+    });
+  }
 }
-
-

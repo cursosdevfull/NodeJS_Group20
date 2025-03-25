@@ -1,2 +1,2 @@
-export { requestTiming } from "./request-timing.middleware"
-export { responseJSON } from "./response-json.middleware"
+export { requestTiming } from "./request-timing.middleware";
+export { responseJson } from "./response-json.middleware";
