@@ -2,6 +2,8 @@ services:
   server-mysql: 
     image: mysql:8
     container_name: server-mysql
+    profiles:
+      - course
     ports:
       - "3306:3306"
     environment:
@@ -17,6 +19,8 @@ services:
   server-phpmyadmin:
     image: phpmyadmin:latest
     container_name: server-phpmyadmin
+    profiles:
+      - course    
     ports:
       - "8080:80"
     environment:
@@ -27,6 +31,8 @@ services:
   server-postgres:
     image: postgres:14.17
     container_name: server-postgres
+    profiles:
+      - other    
     ports:
       - "5432:5432"
     env_file:
@@ -39,6 +45,8 @@ services:
   server-pgadmin:
     image: dpage/pgadmin4
     container_name: server-pgadmin
+    profiles:
+      - other    
     ports:
       - "5050:80"
     env_file:

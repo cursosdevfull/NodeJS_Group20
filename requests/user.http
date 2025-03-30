@@ -3,19 +3,19 @@ post http://localhost:4600/user
 Content-Type: application/json
 
 { 
-    "name": "User name 06", 
-    "lastname": "User lastname 06",
-    "email": "email06@company.com",
-    "password": "password06",
+    "name": "User name 09", 
+    "lastname": "Lastname 09",
+    "email": "email09@company.com",
+    "password": "password09",
     "sex": "FEMALE"
 }
 
 ### Update
-put http://localhost:4600/user/1
+put http://localhost:4600/user/091bbac8-8eea-4ea9-af73-9de6b9dca021
 Content-Type: application/json
 
 { 
-    "price": 2000
+    "name": "Javier"
 }
 
 ### Delete
@@ -25,7 +25,7 @@ delete http://localhost:4600/user/0dca5eac-9031-4140-b789-56ce58e4e6d0
 get http://localhost:4600/user
 
 ### Get By Id
-get http://localhost:4600/user/0dca5eac-9031-4140-b789-56ce58e4e6d0
+get http://localhost:4600/user/091bbac8-8eea-4ea9-af73-9de6b9dca021
 
 ### Get by page
-get http://localhost:4600/user/page?page=1&limit=2
+get http://localhost:4600/user/page?page=1&limit=20

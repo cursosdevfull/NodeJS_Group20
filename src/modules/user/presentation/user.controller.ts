@@ -3,7 +3,7 @@ import type { UserApplication } from "../application";
 import { User } from "../domain";
 
 export class UserController {
-  constructor(private readonly application: UserApplication) {}
+  constructor(private readonly application: UserApplication) { }
 
   async insert(request: Request, response: Response) {
     const { name, lastname, email, password, age, sex } = request.body;

@@ -1,8 +1,11 @@
 import { Router } from "express";
+import { validation } from '../../../core';
 import { UserApplication } from "../application";
 import type { UserRepository } from "../domain";
 import { UserInfrastructure } from "../infrastructure";
+import { UserCreateDto, UserIdDto, UserUpdateDto } from "./dtos";
 import { UserController } from "./user.controller";
+import { PageDto } from '../../../core/dtos/page.dto';
 
 export class UserRoutes {
   router: Router = Router();
@@ -12,14 +15,15 @@ export class UserRoutes {
   }
 
   init() {
-    this.router.post("/", this.controller.insert.bind(this.controller));
-    this.router.put("/:userId", this.controller.update.bind(this.controller));
+    this.router.post("/", validation({ body: UserCreateDto }), this.controller.insert.bind(this.controller));
+    this.router.put("/:userId", validation({ body: UserUpdateDto, params: UserIdDto }), this.controller.update.bind(this.controller));
     this.router.delete(
       "/:userId",
+      validation({ params: UserIdDto }),
       this.controller.delete.bind(this.controller),
     );
-    this.router.get("/page", this.controller.getByPage.bind(this.controller));
-    this.router.get("/:userId", this.controller.getById.bind(this.controller));
+    this.router.get("/page", validation({ query: PageDto }), this.controller.getByPage.bind(this.controller));
+    this.router.get("/:userId", validation({ params: UserIdDto }), this.controller.getById.bind(this.controller));
     this.router.get("/", this.controller.getAll.bind(this.controller));
   }
 }
