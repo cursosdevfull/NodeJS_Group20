@@ -1,7 +1,7 @@
 import express, { type Application } from "express";
 import { DatabaseBootstrap } from "./bootstrap";
 import { ServerBootstrap } from "./bootstrap/server.bootstrap";
-import { requestTiming, responseJson } from "./core";
+import { GeneralException, PathNotFoundException, requestTiming, responseJson } from "./core";
 import { productRouter } from "./modules/product";
 import { userRouter } from "./modules/user";
 
@@ -13,6 +13,7 @@ class App {
     this.mountMiddlewares();
     this.mountHealthCheck();
     this.mountRoutes();
+    this.mountHandlerErrors()
   }
 
   private mountMiddlewares(): void {
@@ -40,6 +41,11 @@ class App {
   private mountRoutes(): void {
     this.app.use("/product", productRouter);
     this.app.use("/user", userRouter);
+  }
+
+  private mountHandlerErrors(): void {
+    this.app.use(PathNotFoundException)
+    this.app.use(GeneralException)
   }
 }
 export default new App().app;

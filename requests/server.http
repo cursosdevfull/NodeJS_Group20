@@ -1,4 +1,4 @@
 get http://localhost:3000
 
 ### Healthcheck
-get http://localhost:3000/healthcheck
+get http://localhost:4600/healthcheck3

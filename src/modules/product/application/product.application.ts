@@ -1,8 +1,8 @@
-import type { ProductPort } from "../ports";
-import type { Product, ProductUpdate } from "./product";
+import type { Product, ProductUpdate } from "@product/application";
+import type { ProductPort } from "@product/ports";
 
 export class ProductApplication {
-  constructor(private readonly port: ProductPort) {}
+  constructor(private readonly port: ProductPort) { }
 
   async create(product: Product): Promise<Product | null> {
     const productExists = await this.port.searchByName(

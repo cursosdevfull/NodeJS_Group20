@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
-import { Product, type ProductApplication } from "../application";
+import { Product, type ProductApplication } from "@product/application";
 
 export class ProductController {
-  constructor(private readonly application: ProductApplication) {}
+  constructor(private readonly application: ProductApplication) { }
 
   async create(request: Request, response: Response) {
     const { name, price, description, stock } = request.body;
@@ -68,12 +68,12 @@ export class ProductController {
   }
 
   async findByPage(request: Request, response: Response) {
-    const { page, size } = request.query;
+    const { page, limit } = request.query;
 
     const products = await this.application.getByPage(
       Number.parseInt(page as string),
-      Number.parseInt(size as string),
+      Number.parseInt(limit as string),
     );
-    response.status(200).json({ ...products, page, size });
+    response.status(200).json({ ...products, page, limit });
   }
 }

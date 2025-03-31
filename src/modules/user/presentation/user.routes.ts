@@ -1,11 +1,11 @@
+import { validation } from '@core';
+import { PageDto } from '@core';
+import { UserApplication } from "@user/application";
+import type { UserRepository } from "@user/domain";
+import { UserInfrastructure } from "@user/infrastructure";
+import { UserCreateDto, UserIdDto, UserUpdateDto } from "@user/presentation";
+import { UserController } from "@user/presentation";
 import { Router } from "express";
-import { validation } from '../../../core';
-import { UserApplication } from "../application";
-import type { UserRepository } from "../domain";
-import { UserInfrastructure } from "../infrastructure";
-import { UserCreateDto, UserIdDto, UserUpdateDto } from "./dtos";
-import { UserController } from "./user.controller";
-import { PageDto } from '../../../core/dtos/page.dto';
 
 export class UserRoutes {
   router: Router = Router();

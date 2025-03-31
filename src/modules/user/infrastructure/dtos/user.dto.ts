@@ -1,5 +1,5 @@
-import { User, type UserProps } from "../../domain";
-import { UserEntity } from "../entities";
+import { User, type UserProps } from "@user/domain";
+import { UserEntity } from "@user/infrastructure";
 
 export class UserDto {
   static fromDomainToData(domain: User | User[]): UserEntity | UserEntity[] {

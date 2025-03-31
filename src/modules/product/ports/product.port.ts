@@ -1,5 +1,5 @@
-import type { ResponsePage } from "../../../core";
-import type { Product } from "../application";
+import type { ResponsePage } from "@core";
+import type { Product } from "@product/application";
 
 export type ProductPort = {
   create(product: Product): Promise<Product>;

@@ -1,9 +1,9 @@
 import { IsNull, Like } from "typeorm";
-import { DatabaseBootstrap } from "../../../bootstrap";
-import type { ResponsePage } from "../../../core";
-import { Product } from "../application";
-import type { ProductPort } from "../ports";
-import { ProductEntity } from "./entities";
+import { DatabaseBootstrap } from "@bootstrap";
+import type { ResponsePage } from "@core";
+import { Product } from "@product/application";
+import type { ProductPort } from "@product/ports";
+import { ProductEntity } from "@product/adapters";
 
 export class ProductAdapter implements ProductPort {
   async create(product: Product): Promise<Product> {

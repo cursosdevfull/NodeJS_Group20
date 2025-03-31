@@ -24,7 +24,7 @@ delete http://localhost:4600/product/3
 get http://localhost:4600/product
 
 ### Get By Id
-get http://localhost:4600/product/3
+get http://localhost:4600/product/4
 
 ### Get by page
-get http://localhost:4600/product/page?page=1&size=2
+get http://localhost:4600/product/page?page=1&limit=2
