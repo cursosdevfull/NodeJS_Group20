@@ -2,8 +2,10 @@ import express, { type Application } from "express";
 import { DatabaseBootstrap } from "./bootstrap";
 import { ServerBootstrap } from "./bootstrap/server.bootstrap";
 import { GeneralException, PathNotFoundException, requestTiming, responseJson } from "./core";
+import { env } from "./env";
 import { productRouter } from "./modules/product";
 import { userRouter } from "./modules/user";
+import { swaggerDocs } from "./swagger";
 
 class App {
   readonly app: Application;
@@ -12,6 +14,7 @@ class App {
     this.app = express();
     this.mountMiddlewares();
     this.mountHealthCheck();
+    this.mountSwagger()
     this.mountRoutes();
     this.mountHandlerErrors()
   }
@@ -38,9 +41,13 @@ class App {
     });
   }
 
+  private mountSwagger(): void {
+    swaggerDocs(this.app, env.APP_HOST, env.PORT);
+  }
+
   private mountRoutes(): void {
-    this.app.use("/product", productRouter);
-    this.app.use("/user", userRouter);
+    this.app.use("/v1/product", productRouter);
+    this.app.use("/v1/user", userRouter);  
   }
 
   private mountHandlerErrors(): void {

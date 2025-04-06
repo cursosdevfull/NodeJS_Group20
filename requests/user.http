@@ -25,7 +25,7 @@ delete http://localhost:4600/user/0dca5eac-9031-4140-b789-56ce58e4e6d0
 get http://localhost:4600/user
 
 ### Get By Id
-get http://localhost:4600/user/091bbac8-8eea-4ea9-af73-9de6b9dca021
+get http://localhost:4600/user/bd6a236e-bbe4-4330-b7b5-b3ec982518e4
 
 ### Get by page
 get http://localhost:4600/user/page?page=1&limit=20

@@ -12,7 +12,6 @@ export class UserController {
     const userResult = await this.application.create(user);
 
     if (!(userResult instanceof User)) {
-      //response.status(userResult.status).json({ message: userResult.message, stack: userResult.stack });
       next(userResult);
     } else {
       response.status(201).json(userResult.properties);
@@ -27,7 +26,6 @@ export class UserController {
     const userResult = await this.application.update(userId, props);
 
     if (!(userResult instanceof User)) {
-      //response.status(userResult.status).json({ message: userResult.message, stack: userResult.stack });
       next(userResult);
     } else {
       response.status(201).json(userResult.properties);
@@ -39,7 +37,6 @@ export class UserController {
     const userResult = await this.application.delete(userId);
 
     if (!(userResult instanceof User)) {
-      //response.status(userResult.status).json({ message: userResult.message, stack: userResult.stack });
       next(userResult);
     } else {
       response.status(204).send();
@@ -52,7 +49,6 @@ export class UserController {
     const userResult = await this.application.getById(userId);
 
     if (!(userResult instanceof User)) {
-      //response.status(userResult.status).json({ message: userResult.message, stack: userResult.stack });
       next(userResult);
     } else {
       response.status(200).json(userResult.properties);
@@ -63,7 +59,6 @@ export class UserController {
     const usersResult = await this.application.getAll();
 
     if (!(Array.isArray(usersResult))) {
-      //response.status(usersResult.status).json({ message: usersResult.message, stack: usersResult.stack });
       next(usersResult);
     } else {
       response.status(200).json(usersResult.map((item) => item.properties));
@@ -81,7 +76,6 @@ export class UserController {
     if (!responsePageUsersResult || 'status' in responsePageUsersResult) {
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const error = responsePageUsersResult as any;
-      //response.status(error.status).json({ message: error.message, stack: error.stack });
       next(error);
     } else {
       response.status(200).json(responsePageUsersResult);
