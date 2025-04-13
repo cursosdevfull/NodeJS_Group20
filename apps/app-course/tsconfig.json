@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "@user/*": [
+                "./src/modules/user/*"
+            ],
+            "@core/*": [
+                "./src/core/*"
+            ],
+            "@bootstrap/*": [
+                "./src/bootstrap/*"
+            ],
+        }
+    },
+    "ts-node": {
+        "transpileOnly": true,
+        "require": [
+            "tsconfig-paths/register"
+        ],
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "tests"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "//#biome-check": {},
+        "//#biome-fix": {},
+        "dev": {
+            "cache": false
+        }
+    }
+}

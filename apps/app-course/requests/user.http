@@ -1,0 +1,25 @@
+### Get all users
+get http://localhost:4600/v1/user
+
+### Get user by id
+get http://localhost:4600/v1/user/2
+
+### Create user
+post http://localhost:4600/v1/user
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@email.com",
+    "password": "password123",
+    "age": 40,
+    "sex": "MALE"
+}
+
+### Update user
+put http://localhost:4600/v1/user/1
+Content-Type: application/json  
+
+{
+    "age": 20
+}

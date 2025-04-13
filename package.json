@@ -1,0 +1,40 @@
+{
+  "name": "course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "biome-check": "biome check .",
+    "biome-fix": "biome check . --write --unsafe",
+    "format-and-lint:fix": "turbo run biome-fix",
+    "dev": "turbo run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cursosdevfull/NodeJS_Group20.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cursosdevfull/NodeJS_Group20/issues"
+  },
+  "homepage": "https://github.com/cursosdevfull/NodeJS_Group20#readme",
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@11.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.5.0"
+  }
+}
