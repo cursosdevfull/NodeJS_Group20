@@ -32,16 +32,12 @@ class App {
 
     private mountHealthCheck(): void {
         this.app.get("/healthcheck", (_request, response) => {
-            Promise.all([
-                /*                 ServerBootstrap.healthCheck(),
-                                DatabaseBootstrap.healthCheck(), */
-            ])
-                .then((result) => {
-                    response.json(result);
-                })
-                .catch((error) => {
-                    response.status(500).send(error);
-                });
+            response.status(200).json({
+                status: "ok",
+                uptime: process.uptime(),
+                message: "API is running",
+                timestamp: new Date().toISOString(),
+            });
         });
     }
 

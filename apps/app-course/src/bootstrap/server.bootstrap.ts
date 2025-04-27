@@ -16,10 +16,9 @@ export class ServerBootstrap {
             const server = http.createServer(app);
 
             const port = env.PORT;
-            const appHost = env.APP_HOST;
 
             server
-                .listen(port, appHost)
+                .listen(port)
                 .on("error", (error) => reject(`Error: ${error}`))
                 .on("listening", () => {
                     const address = server.address() as AddressInfo;

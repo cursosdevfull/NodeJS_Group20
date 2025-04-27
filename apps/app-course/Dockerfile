@@ -21,6 +21,7 @@ USER node
 COPY package.json .
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/tsconfig.json ./tsconfig.json
 COPY --from=build /usr/src/app/variable.env ./variable.env
 
 CMD ["npm", "run", "start"]

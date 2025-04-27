@@ -6,8 +6,8 @@ import { authorization } from "./authorization.middleware";
 import { validation } from "./validation.middleware";
 
 type Props = {
-    isAuthenticated: boolean,
-    rolesAllowed: RoleUser[],
+    isAuthenticated?: boolean,
+    rolesAllowed?: RoleUser[],
     schemasValidation?: ValidationArgumentsType
 }
 
@@ -19,7 +19,7 @@ export function applyMiddlewares(props: Props) {
             authentication(req, res, next);
         }
 
-        if (rolesAllowed.length > 0) {
+        if (rolesAllowed && rolesAllowed.length > 0) {
             authorization(...rolesAllowed)(req, res, next);
         }
 

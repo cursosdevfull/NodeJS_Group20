@@ -27,8 +27,8 @@ class UserRoutes {
 
         this.router.post("/", 
             applyMiddlewares({
-                isAuthenticated: true, 
-                rolesAllowed: [RoleUser.Admin], 
+                /*isAuthenticated: true, 
+                rolesAllowed: [RoleUser.Admin], */
                 schemasValidation: { body: UserCreateDto }
             }),
             this.controller.insert.bind(this.controller));

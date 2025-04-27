@@ -1,11 +1,11 @@
+import { RedisBootstrap } from "@bootstrap/redis.bootstrap";
 import { cypher, generateRefreshToken } from "@core/services";
 import { type UserApplication } from "@user/application";
 import { User, UserPropsUpdate } from "@user/domain";
 import { plainToInstance } from "class-transformer";
 import { NextFunction, Request, Response } from "express";
 import { UserResponseDto } from "./dtos";
-import { RedisBootstrap } from "@bootstrap/redis.bootstrap";
-import { env } from "src/env";
+import { env } from '../../../env';
 
 
 export class UserController {

@@ -14,9 +14,9 @@
     "test:coverage": "cross-env NODE_ENV=development jest --coverage",
     "test:coverage:unit": "npm run test:unit -- --coverage",
     "test:coverage:integration": "npm run test:integration -- --coverage",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "dev": "nodemon src/index.ts",
-    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register dist/index.js"
+    "start": "node --env-file=variable.env dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -30,11 +30,13 @@
     "express": "^5.1.0",
     "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mysql2": "^3.14.0",
     "neverthrow": "^8.2.0",
     "reflect-metadata": "^0.2.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "tsconfig-paths": "^4.2.0",
     "typeorm": "^0.3.22",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
@@ -56,7 +58,14 @@
     "nodemon": "^3.1.9",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
+    "tsc-alias": "^1.8.15",
     "typescript": "^5.8.3"
+  },
+  "_moduleAliases": {
+    "@bootstrap": "dist/bootstrap",
+    "@auth": "dist/modules/auth",
+    "@core": "dist/core",
+    "@role": "dist/modules/role",
+    "@user": "dist/modules/user"
   }
 }
