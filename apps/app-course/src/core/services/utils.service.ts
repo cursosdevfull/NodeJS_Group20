@@ -1,3 +1,5 @@
+import * as bcrypt from 'bcryptjs';
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const removeEmptyProperties = (obj: Record<string, any>): Record<string, any> => {
     return Object.fromEntries(
@@ -7,4 +9,12 @@ export const removeEmptyProperties = (obj: Record<string, any>): Record<string, 
             return true;
         })
     );
+}
+
+export const cypher = (text: string): Promise<string> => {
+    return bcrypt.hash(text, 10)
+}
+
+export const compare = (text: string, hash: string): Promise<boolean> => {
+    return bcrypt.compare(text, hash)
 }

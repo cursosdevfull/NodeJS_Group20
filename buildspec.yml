@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - echo Logging into AWS ECR
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 282865065290.dkr.ecr.us-east-1.amazonaws.com/cursonodejs20
+  build:
+    commands:
+      - echo Build started at `date`
+      - echo Building the docker image
+      - aws s3 cp s3://cursonodejs20/$ENVIRONMENT/variable.env apps/app-course/variable.env
+      - cd apps/app-course
+      - docker build -t cursonodejs20 .
+      - docker tag cursonodejs20 282865065290.dkr.ecr.us-east-1.amazonaws.com/cursonodejs20
+  post_build:
+    commands:
+      - docker push 282865065290.dkr.ecr.us-east-1.amazonaws.com/cursonodejs20
+artifacts:
+  files:
+    - 'Dockerrun.aws.json'

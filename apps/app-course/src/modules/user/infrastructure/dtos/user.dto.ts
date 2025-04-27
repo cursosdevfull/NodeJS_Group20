@@ -1,4 +1,4 @@
-import { Sex, User } from "@user/domain";
+import { Role, Sex, User } from "@user/domain";
 import { plainToInstance } from 'class-transformer';
 import { UserEntity } from "../entities";
 
@@ -23,7 +23,14 @@ export class UserDto {
                     sex: entity.sex as Sex, 
                     createdAt: entity.createdAt, 
                     updatedAt: entity.updatedAt, 
-                    deletedAt: entity.deletedAt
+                    deletedAt: entity.deletedAt,
+                    refreshToken: entity.refreshToken,
+                    roles: entity.roles.map(role => {
+                        const instance = new Role()
+                        instance.roleId = role.roleId;
+                        instance.name = role.name;
+                        return instance;
+                    })
                 }
             )) as User[];
         }
@@ -37,7 +44,14 @@ export class UserDto {
             sex: data.sex as Sex,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt,
-            deletedAt: data.deletedAt
+            deletedAt: data.deletedAt,
+            refreshToken: data.refreshToken,
+            roles: data.roles.map(role => {
+                const instance = new Role()
+                instance.roleId = role.roleId;
+                instance.name = role.name;
+                return instance;
+            })
         }) as User;
     }
 }

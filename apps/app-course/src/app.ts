@@ -1,4 +1,7 @@
+import { authRouter } from "@auth/presentation";
 import { GeneralException, PathNotFoundException } from "@core/errors";
+import { RequestTimingMiddleware } from "@core/middlewares";
+import { CacheService } from "@core/services";
 import { userRouter } from "@user/presentation";
 import express, { type Application } from "express";
 /* import { DatabaseBootstrap } from "./bootstrap";
@@ -14,23 +17,24 @@ class App {
         this.app = express();
         this.mountMiddlewares();
         this.mountHealthCheck();
+        this.mountInvalidateCache();
         this.mountSwagger()
         this.mountRoutes();
         this.mountHandlerErrors()
+
     }
 
     private mountMiddlewares(): void {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
-/*         this.app.use(requestTiming);
-        this.app.use(responseJson); */
+        this.app.use(RequestTimingMiddleware.handle)
     }
 
     private mountHealthCheck(): void {
         this.app.get("/healthcheck", (_request, response) => {
             Promise.all([
-/*                 ServerBootstrap.healthCheck(),
-                DatabaseBootstrap.healthCheck(), */
+                /*                 ServerBootstrap.healthCheck(),
+                                DatabaseBootstrap.healthCheck(), */
             ])
                 .then((result) => {
                     response.json(result);
@@ -47,13 +51,20 @@ class App {
 
     private mountRoutes(): void {
         this.app.use("/v1/user", userRouter)
- /*        this.app.use("/v1/product", productRouter);
-        this.app.use("/v1/user", userRouter); */
+        this.app.use("/v1/auth", authRouter)
     }
 
     private mountHandlerErrors(): void {
-         this.app.use(PathNotFoundException)
-        this.app.use(GeneralException) 
+        this.app.use(PathNotFoundException)
+        this.app.use(GeneralException)
+    }
+
+    private mountInvalidateCache(): void {
+        this.app.get("/invalidate-cache", async (request, response) => {
+            const { prefix } = request.query as { prefix: string };
+            CacheService.invalidate(prefix);
+            response.status(200).send("Cache invalidated");
+        })
     }
 }
 export default new App().app;

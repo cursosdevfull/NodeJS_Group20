@@ -1,17 +1,19 @@
 import "reflect-metadata";
 import "tsconfig-paths/register";
 import app from "./app";
-import { DatabaseBootstrap, ServerBootstrap } from "@bootstrap/index";
+import { DatabaseBootstrap, ServerBootstrap, RedisBootstrap } from "@bootstrap/index";
 import "./env";
 
 const server = new ServerBootstrap(app);
 const database = new DatabaseBootstrap();
+const redis = new RedisBootstrap();
 
 (async () => {
     try {
         const response = await Promise.allSettled([
             server.initialize(),
             database.initialize(),
+            redis.initialize(),
         ]);
 
         response.forEach((result) => {

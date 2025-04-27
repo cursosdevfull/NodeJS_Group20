@@ -1,25 +1,30 @@
 ### Get all users
 get http://localhost:4600/v1/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2VyZ2lvQGVtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIiwiT1BFUkFUT1IiXSwiaWF0IjoxNzQ1NzY3NzkwLCJleHAiOjE3NDU3NzEzOTB9.9vzxmNnKJfpkz8fbX6ou7YfZ2RjDSd1CJJ5Iv-1o08s
 
 ### Get user by id
-get http://localhost:4600/v1/user/2
+get http://localhost:4600/v1/user/13
 
 ### Create user
 post http://localhost:4600/v1/user
 Content-Type: application/json
 
 {
-    "name": "John Doe",
-    "email": "john.doe@email.com",
-    "password": "password123",
+    "name": "Sergio",
+    "email": "sergio@email.com",
+    "password": "12345",
     "age": 40,
-    "sex": "MALE"
+    "sex": "MALE",
+    "roles": [{"roleId": 2}]
 }
 
 ### Update user
-put http://localhost:4600/v1/user/1
+put http://localhost:4600/v1/user/14
 Content-Type: application/json  
 
 {
-    "age": 20
+    "roles": [{"roleId": 2}, {"roleId": 1}]
 }
+
+### Pagination
+get http://localhost:4600/v1/user/page?page=1&limit=20

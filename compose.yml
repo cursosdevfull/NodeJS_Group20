@@ -24,6 +24,29 @@ services:
     networks:
       - server-network
 
+  server-redis:
+    image: redis:6.0.5-alpine
+    command: redis-server --requirepass todovale
+    container_name: server-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - server-network
+
+  client-redis:
+    image: rediscommander/redis-commander:latest
+    container_name: client-redis
+    restart: always
+    ports:
+      - "5500:8081"
+    environment:
+      - REDIS_HOST=server-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=todovale
+    networks:
+      - server-network      
+
 networks:
   server-network:
     driver: bridge

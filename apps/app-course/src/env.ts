@@ -18,6 +18,12 @@ const envSchema = z.object({
         z.boolean().default(false),
     ),
     DB_POOL: z.coerce.number().default(10),
+    JWT_SECRET: z.string().default("secret"),
+    JWT_EXPIRES_IN: z.string().default("1h"),
+    REDIS_HOST: z.string().default("localhost"),
+    REDIS_PORT: z.coerce.number().default(6379),
+    REDIS_PASS: z.string().default(""),
+    REDIS_TTL: z.coerce.number().default(1),
 });
 
 type Env = z.infer<typeof envSchema>;

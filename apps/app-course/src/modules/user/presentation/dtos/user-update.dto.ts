@@ -1,4 +1,6 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString, Length, Min} from "class-validator"
+import { Type } from "class-transformer"
+import { ArrayMinSize, IsArray, IsEnum, IsOptional, IsString, Length, Min, ValidateNested } from "class-validator"
+import { Role } from "./role.dto"
 
 enum Sex {
     Male = "MALE",
@@ -16,14 +18,19 @@ export class UserUpdateDto {
     @IsString()
     password!: string
 
-    @IsNotEmpty()
     @Min(18)
     @IsOptional()
     age?: number
 
-    @IsNotEmpty()
     @Length(1, 10)
     @IsOptional()
     @IsEnum(Sex, { message: "Sex can be only MALE or FEMALE" })
     sex?: string
+
+    @IsOptional()
+    @IsArray()
+    @ArrayMinSize(1, { message: "At least one role is required" })
+    @ValidateNested({ each: true })
+    @Type(() => Role)
+    roles!: Role[]
 }

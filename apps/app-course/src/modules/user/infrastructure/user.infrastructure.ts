@@ -5,6 +5,8 @@ import { IsNull } from "typeorm";
 import { UserDto } from "./dtos";
 import { UserEntity } from "./entities";
 import { DatabaseException } from "@core/exceptions";
+import { RoleEntity } from "@role/infrastructure/entities";
+import { plainToInstance } from "class-transformer";
 
 export class UserInfrastructure implements UserRepository {
     async save(user: User): Promise<User> {
@@ -12,6 +14,7 @@ export class UserInfrastructure implements UserRepository {
             const repository = DatabaseBootstrap.datasource.getRepository(UserEntity);
             const userEntity = UserDto.fromDomainToData(user) as UserEntity;
             const userSaved = await repository.save(userEntity);
+            userSaved.roles = user.properties.roles.map(role => plainToInstance(RoleEntity, role)) as RoleEntity[];
 
             return UserDto.fromDataToDomain(userSaved) as User;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -50,7 +53,7 @@ export class UserInfrastructure implements UserRepository {
     async getAll(): Promise<User[]> {
         try {
             const repository = DatabaseBootstrap.datasource.getRepository(UserEntity);
-            const userEntities = await repository.find({ where: { deletedAt: IsNull() } });
+            const userEntities = await repository.find({ where: { deletedAt: IsNull() } /*, relations: {roles: true} */});
             return UserDto.fromDataToDomain(userEntities) as User[];
             // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         } catch (error: any) {
@@ -72,7 +75,7 @@ export class UserInfrastructure implements UserRepository {
                 total,
                 page,
                 limit,
-                data: UserDto.fromDataToDomain(users) as User[],
+                data: UserDto.fromDataToDomain(users) as User[]
             }
             // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         } catch (error: any) {

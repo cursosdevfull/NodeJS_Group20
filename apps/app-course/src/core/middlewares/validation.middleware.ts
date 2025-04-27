@@ -1,11 +1,7 @@
+import { ParametersType, ValidationArgumentsType } from '@core/types';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import type { NextFunction, Request, Response } from 'express';
-
-type ParametersType = "body" | "query" | "params" | "headers";
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-type ValidationArgumentsType = Partial<Record<ParametersType, new (...args: any[]) => any>>;
 
 export function validation(parameters: ValidationArgumentsType) {
     return async (request: Request, response: Response, next: NextFunction) => {
@@ -35,12 +31,21 @@ export function validation(parameters: ValidationArgumentsType) {
 
             if (errorsValidation.length > 0) {
                 response.status(411).json({ message: "Invalid data", errors: errorsValidation });
-                //next()
                 return;
             }
 
-            // Sustituir los valores originales con los transformados
-            request[parameterType] = instance;
+            // Handle query parameters differently since they're read-only
+            if (parameterType === 'query') {
+                // Create a property to store the validated query
+                Object.defineProperty(request, 'validatedQuery', {
+                    value: instance,
+                    writable: true,
+                    configurable: true
+                });
+            } else {
+                // For other parameters, replace the originals with validated ones
+                request[parameterType] = instance;
+            }
         }
         next();
     }

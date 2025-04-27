@@ -13,22 +13,32 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
-            "@user/*": [
-                "./src/modules/user/*"
+            "@bootstrap/*": [
+                "./src/bootstrap/*"
+            ],
+            "@auth/*": [
+                "./src/modules/auth/*"
             ],
             "@core/*": [
                 "./src/core/*"
             ],
-            "@bootstrap/*": [
-                "./src/bootstrap/*"
+            "@role/*": [
+                "./src/modules/role/*"
             ],
-        }
+            "@user/*": [
+                "./src/modules/user/*"
+            ]
+        },
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/core/types"
+        ]
     },
     "ts-node": {
         "transpileOnly": true,
         "require": [
             "tsconfig-paths/register"
-        ],
+        ]
     },
     "include": [
         "src/**/*.ts"
